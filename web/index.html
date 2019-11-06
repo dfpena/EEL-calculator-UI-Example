@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="theme-color" content="#212121">
+  <meta name="msapplication-TileColor" content="#212121"/>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/hover-min.css" media="all">
+  <link rel="stylesheet" type="text/css" href="css/creative.min.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+  <link rel="manifest" href="img/manifest.json">
+  <link rel="mask-icon" href="img/safari-pinned-tab.svg" color="#455A64">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+  <script type="text/javascript" src="/eel.js"></script>
+  <title>Eel Calculator</title>
+
+</head>
+
+<body>
+    <div class="col-md-4 col-md-offset-4 calculator" align="center">
+      <div class="row displayBox">
+        <p class="displayText" id="display">0</p>
+      </div>
+      <div class="row numberPad">
+        <div class="col-md-9">
+          <div class="row">
+            <button class="btn clear hvr-back-pulse" id="clear" onclick="cclear()">C</button>
+            <button class="btn btn-calc hvr-radial-out" id="sqrt" onclick="sqrt()">√</button>
+            <button class="btn btn-calc hvr-radial-out hvr-radial-out" id="square" onclick="square()">x<sup>2</sup></button>
+          </div>
+          <div class="row">
+            <button class="btn btn-calc hvr-radial-out" id="seven" onclick="insert('7')">7</button>
+            <button class="btn btn-calc hvr-radial-out" id="eight" onclick="insert('8')">8</button>
+            <button class="btn btn-calc hvr-radial-out" id="nine" onclick="insert('9')">9</button>
+          </div>
+          <div class="row">
+            <button class="btn btn-calc hvr-radial-out" id="four" onclick="insert('4')">4</button>
+            <button class="btn btn-calc hvr-radial-out" id="five" onclick="insert('5')">5</button>
+            <button class="btn btn-calc hvr-radial-out" id="six" onclick="insert('6')">6</button>
+          </div>
+          <div class="row">
+            <button class="btn btn-calc hvr-radial-out" id="one" onclick="insert('1')">1</button>
+            <button class="btn btn-calc hvr-radial-out" id="two" onclick="insert('2')">2</button>
+            <button class="btn btn-calc hvr-radial-out" id="three" onclick="insert('3')">3</button>
+          </div>
+          <div class="row">
+            <button class="btn btn-calc hvr-radial-out" id="plus_minus" onclick="plus_minus('-')">&#177;</button>
+            <button class="btn btn-calc hvr-radial-out" id="zero" onclick="insert('0')">0</button>
+            <button class="btn btn-calc hvr-radial-out" id="decimal" onclick="insert('.')">.</button>
+          </div>
+        </div>
+        <div class="col-md-3 operationSide">
+          <button id="divide" class="btn btn-operation hvr-fade" onclick="insert('/')">÷</button>
+          <button id="multiply" class="btn btn-operation hvr-fade" onclick="insert('*')">×</button>
+          <button id="subtract" class="btn btn-operation hvr-fade" onclick="insert('-')">−</button>
+          <button id="add" class="btn btn-operation hvr-fade" onclick="insert('+')">+</button>
+          <button id="equals" class="btn btn-operation equals hvr-back-pulse" onclick="cevaluate()">=</button>
+        </div>
+      </div>
+    </div>
+  <script src="js/bootstrap.min.js"></script>
+  <script>
+  var displayBox = document.getElementById('display')
+    async function cclear() {
+          // Call Python to clear string
+          let userstring = await eel.clear()();
+          displayBox.innerHTML = userstring;
+      }
+      async function sqrt() {
+          var num = displayBox.innerHTML;
+          // Square root current Using Python
+          let userstring = await eel.action1Sqrt(num)();
+          displayBox.innerHTML = userstring;
+      }
+      async function square() {
+          var num = displayBox.innerHTML;
+          // Square current Using Python
+          let userstring = await eel.action2Square(num)();
+          displayBox.innerHTML = userstring;
+      }
+      async function insert(val) {
+          var num = displayBox.innerText;
+
+          // add 1 to string
+          let userstring = await eel.addString(num,val)();
+          displayBox.innerText = userstring;
+      }
+      async function plus_minus(val) {
+          var num = displayBox.innerText;
+
+          // add 1 to string
+          let userstring = await eel.addString(val,num)();
+          displayBox.innerText = userstring;
+      }
+      async function cevaluate() {
+          var num = displayBox.innerText;
+
+          // evaluate Display
+          let userstring = await eel.action3Evaluate(num)();
+          displayBox.innerHTML = userstring;
+      }
+  </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+</body>
+
+</html>
