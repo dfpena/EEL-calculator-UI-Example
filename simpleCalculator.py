@@ -7,6 +7,21 @@ import math
 import sys
 
 
+
+def limit_decimal_precision(_float):
+    """
+    it seems long floats dont limit within the display window
+    and total digits we can show is 11
+    """
+    order_of_magitude = math.log10(_float)
+    #  3 will be 0, 30 will be 1 etc etc
+    floor = math.floor(order_of_magitude)
+    #  e.g. .456 will be -1
+    if floor < 0:
+        return 10
+    return 10 - floor
+
+
 @decorator
 def on_start(func,*args, **kwargs):
     if kwargs !={}:
@@ -88,7 +103,11 @@ def eelStart1(*args,**kwargs):
  
 @on_start
 def calceval2(*args,**kwargs):
-    kwargs['Data'] = eval(kwargs['Data'])
+    out = eval(kwargs['Data'])
+    if isinstance(out, float):
+        to_round = limit_decimal_precision(out)
+        out = round(out, to_round)
+    kwargs['Data'] = out
     return kwargs
  
 @on_start
