@@ -2,9 +2,9 @@
 #!/usr/bin/env python
 from decorator import decorator
 
-import sys
 import eel
 import math
+import sys
 
 
 @decorator
@@ -57,12 +57,12 @@ def eelStart1(*args,**kwargs):
     @eel.expose
     def action1Sqrt(event):
         kwargs['Data'] = event
-        return sqrt4(**kwargs)['Data'] 
+        return sqrt3(**kwargs)['Data'] 
         
     @eel.expose
     def action2Square(event):
         kwargs['Data'] = event
-        return square3(**kwargs)['Data']
+        return square4(**kwargs)['Data']
     
     
     @eel.expose
@@ -92,13 +92,13 @@ def calceval2(*args,**kwargs):
     return kwargs
  
 @on_start
-def square3(*args,**kwargs):
-    kwargs['Data'] = eval(kwargs['Data'])**2
+def sqrt3(*args,**kwargs):
+    kwargs['Data'] = (round(math.sqrt(eval(kwargs['Data'])),5))
     return kwargs
  
 @on_start
-def sqrt4(*args,**kwargs):
-    kwargs['Data'] = (round(math.sqrt(eval(kwargs['Data'])),5))
+def square4(*args,**kwargs):
+    kwargs['Data'] = eval(kwargs['Data'])**2
     return kwargs
  
 
